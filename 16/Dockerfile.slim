@@ -4,6 +4,6 @@ LABEL maintainer="Milan Sulc <sulcmil@gmail.com>"
 
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y git curl zip bzip2 && \
+    apt-get install -y git curl zip bzip2 make && \
     apt-get clean -y && apt-get autoclean -y && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /var/lib/log/* /tmp/* /var/tmp/*
