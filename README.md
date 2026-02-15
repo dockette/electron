@@ -18,3 +18,7 @@ Docker images for building Electron apps.
 ```
 docker run -it --rm dockette/electorn:16-slim /bin/bash
 ```
+
+## Maintenance
+
+See [how to contribute](https://github.com/dockette/.github/blob/master/CONTRIBUTING.md) to this package.
