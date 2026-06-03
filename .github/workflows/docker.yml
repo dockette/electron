@@ -1,6 +1,8 @@
 name: Docker
 
 on:
+  workflow_dispatch:
+
   push:
     branches: [master]
 
@@ -8,7 +10,31 @@ permissions:
   contents: read
 
 jobs:
-  docker:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image for testing
+        run: docker build -t dockette/electron:16-slim-test -f 16/Dockerfile.slim .
+
+      - name: Test Node.js
+        run: docker run --rm dockette/electron:16-slim-test node --version
+
+      - name: Test npm
+        run: docker run --rm dockette/electron:16-slim-test npm --version
+
+      - name: Test Electron build tools
+        run: |
+          docker run --rm dockette/electron:16-slim-test make --version
+          docker run --rm dockette/electron:16-slim-test zip --version
+
+  build:
+    name: Build (dockette/electron:${{ matrix.tag }})
+    needs: test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,8 +45,6 @@ jobs:
             tag: "16-slim"
 
       fail-fast: false
-
-    name: Docker (dockette/electron:${{ matrix.tag }})
 
     steps:
       - name: Checkout
@@ -42,6 +66,23 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           file: ${{ matrix.dockerfile }}
-          push: true
+          push: ${{ github.ref == 'refs/heads/master' }}
           tags: dockette/electron:${{ matrix.tag }}
           platforms: linux/amd64,linux/arm64
+
+  docs:
+    name: Docs
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update Docker Hub description
+        uses: peter-evans/dockerhub-description@v5
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: dockette/electron

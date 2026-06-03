@@ -1,22 +1,24 @@
-# Electron
+<h1 align=center>Dockette / Electron</h1>
 
-Docker images for building Electron apps.
+<p align=center>
+   <a href="https://github.com/dockette/electron/actions"><img src="https://github.com/dockette/electron/actions/workflows/docker.yml/badge.svg" alt="GitHub Actions"></a>
+   <a href="https://hub.docker.com/r/dockette/electron"><img src="https://img.shields.io/docker/pulls/dockette/electron.svg" alt="Docker Hub pulls"></a>
+   <a href="https://github.com/sponsors/f3l1x"><img src="https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ea4aaa" alt="GitHub Sponsors"></a>
+   <a href="https://github.com/orgs/dockette/discussions"><img src="https://img.shields.io/badge/support-discussions-6f42c1" alt="Support/Discussions"></a>
+</p>
+
+<p align=center>
+   Docker images for building Electron apps.
+</p>
 
 ------
-
-[![Docker Stars](https://img.shields.io/docker/stars/dockette/electron.svg?style=flat)](https://hub.docker.com/r/dockette/electron/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/dockette/electron.svg?style=flat)](https://hub.docker.com/r/dockette/electron/)
-
-## Discussion / Help
-
-[![Join the chat](https://img.shields.io/gitter/room/dockette/dockette.svg?style=flat-square)](https://gitter.im/dockette/dockette?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Images
 
 - Preinstalled packages: git curl zip bzip2
 
 ```
-docker run -it --rm dockette/electorn:16-slim /bin/bash
+docker run -it --rm dockette/electron:16-slim /bin/bash
 ```
 
 ## Maintenance
